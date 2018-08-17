@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    android:background="@color/theme_white"
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity">
+
+
+    <!--内容-->
+    <LinearLayout
+
+        android:id="@+id/fragment_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:background="@color/colorAccent"/>
+
+
+    <!--tabbar-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:orientation="horizontal">
+
+
+        <!--首页-->
+        <LinearLayout
+            android:id="@+id/home"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/theme_text_gary"
+                android:text="@string/home"/>
+
+        </LinearLayout>
+        <!--活动-->
+        <LinearLayout
+            android:id="@+id/activity"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/theme_text_gary"
+                android:text="@string/activity"/>
+
+        </LinearLayout>
+        <!--发现-->
+        <LinearLayout
+            android:id="@+id/discover"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/theme_text_gary"
+                android:text="@string/discover"/>
+
+        </LinearLayout>
+        <!--我的-->
+        <LinearLayout
+            android:id="@+id/me"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/theme_text_gary"
+                android:text="@string/me"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
