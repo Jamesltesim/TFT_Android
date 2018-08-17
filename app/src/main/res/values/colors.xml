@@ -6,5 +6,5 @@
 
 
     <color name="theme_white">#FFFFFFFF</color>
-    <color name="theme_text_gary">#BBBBBBBB</color>
+    <color name="theme_text_gray">#BBBBBBBB</color>
 </resources>

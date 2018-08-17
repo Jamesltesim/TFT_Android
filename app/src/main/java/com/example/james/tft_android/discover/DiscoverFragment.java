@@ -1,4 +1,4 @@
-package com.example.james.tft_android.home;
+package com.example.james.tft_android.discover;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,15 +10,14 @@ import android.view.ViewGroup;
 
 import com.example.james.tft_android.R;
 
-public class HomeFragment extends Fragment {
-
-    public HomeFragment() {
+public class DiscoverFragment extends Fragment{
+    public DiscoverFragment() {
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_home,container,false);
+        View rootView = inflater.inflate(R.layout.fragment_discover,container,false);
         return rootView;
     }
 }
