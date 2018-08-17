@@ -16,6 +16,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+
+        <activity android:name=".home.menu.MenuListActivity">
+            <intent-filter>
+                <action android:name="MenuListActivity" />
+
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
