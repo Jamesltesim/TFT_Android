@@ -25,6 +25,12 @@
 
             </intent-filter>
         </activity>
+
+        <activity android:name=".me.TestActivity">
+            <intent-filter>
+                <action android:name="TestActivity" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
