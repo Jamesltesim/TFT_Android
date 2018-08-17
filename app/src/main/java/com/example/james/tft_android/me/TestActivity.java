@@ -2,7 +2,6 @@ package com.example.james.tft_android.me;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.OrientationHelper;
@@ -76,7 +75,7 @@ public class TestActivity extends AppCompatActivity {
 /**
  * json数据
  */
-        String data = getJson("data.json",this);
+        String data = getJson("me.json",this);
 
         GroupChildBean bean = new Gson().fromJson(data, GroupChildBean.class);
 
