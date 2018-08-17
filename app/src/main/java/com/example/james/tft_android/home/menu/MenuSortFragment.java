@@ -17,7 +17,7 @@ import com.example.james.tft_android.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fragment01 extends Fragment {
+public class MenuSortFragment extends Fragment {
 
     View rootView;
     RecyclerView mRecyclerView;
@@ -27,7 +27,7 @@ public class Fragment01 extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.layout1,container,false);
+        rootView = inflater.inflate(R.layout.fragment_menusort_home,container,false);
         return rootView;
     }
 
@@ -40,7 +40,7 @@ public class Fragment01 extends Fragment {
         //设置布局管理器
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         //设置adapter
-        HomeAdapter adapter = new HomeAdapter(getContext(),this.mDatas);
+        MenuSortAdapter adapter = new MenuSortAdapter(getContext(),this.mDatas);
         mRecyclerView.setAdapter(adapter);
         //设置Item增加、移除动画
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());

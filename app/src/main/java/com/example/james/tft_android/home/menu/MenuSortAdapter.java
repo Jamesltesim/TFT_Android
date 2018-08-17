@@ -12,12 +12,12 @@ import com.example.james.tft_android.R;
 
 import java.util.List;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> {
+public class MenuSortAdapter extends RecyclerView.Adapter<MenuSortAdapter.MyViewHolder> {
 
     Context context;
     private List<String> dataList;
 
-    public HomeAdapter(Context context, List<String> list){
+    public MenuSortAdapter(Context context, List<String> list){
         this.context = context;
         this.dataList = list;
     }

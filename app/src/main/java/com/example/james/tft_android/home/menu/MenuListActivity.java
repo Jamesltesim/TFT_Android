@@ -36,11 +36,11 @@ public class MenuListActivity extends AppCompatActivity {
 
             for (int i = 0; i < tabStrs.length; i++) {
                 tableLayout.addTab(tableLayout.newTab().setText(tabStrs[i]));
-                listfragment.add(new Fragment01());
+                listfragment.add(new MenuSortFragment());
 
             }
 
-            ViewPagerAdapter adapter=new ViewPagerAdapter(getSupportFragmentManager(),listfragment);
+            MenuListAdapter adapter=new MenuListAdapter(getSupportFragmentManager(),listfragment);
             viewPager.setAdapter(adapter);
 
 
