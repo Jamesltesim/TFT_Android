@@ -5,7 +5,6 @@ public class TFManage {
     private TFManage(){
 
     }
-
     // 2. 创建类的私有静态实例
 
     private static TFManage instance = new TFManage();
