@@ -1,22 +1,18 @@
 package com.example.james.tft_android.activity;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.james.tft_android.R;
+import com.example.james.tft_android.base.BaseFragment;
 
-public class ActivityFragment extends Fragment {
+public class ActivityFragment extends BaseFragment {
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_activity,container,false);
-        return rootView;
+    public int getLayout() {
+        return R.layout.fragment_activity;
+    }
+
+    @Override
+    public void onCreateView() {
+
     }
 
 }

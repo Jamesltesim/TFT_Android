@@ -9,10 +9,18 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class BaseActivity extends AppCompatActivity {
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
+public abstract class BaseActivity extends AppCompatActivity {
+
+    Unbinder binder;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setContentView(getLayout());
+        binder = ButterKnife.bind(this);
 
 //         沉浸式状态栏
 
@@ -27,5 +35,17 @@ public class BaseActivity extends AppCompatActivity {
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
+
+        onCreate();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (binder != null)
+        binder.unbind();
+    }
+
+    public abstract int getLayout();
+    public abstract void onCreate();
 }

@@ -3,10 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="@color/theme_text_gray"
-        android:text="me"/>
+        android:layout_height="wrap_content"/>
 </android.support.constraint.ConstraintLayout>
