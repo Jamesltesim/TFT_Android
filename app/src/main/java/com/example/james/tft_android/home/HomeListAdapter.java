@@ -22,7 +22,7 @@ import java.util.List;
  * Created by caobin on 2017/9/14.
  */
 
-public class GroupRecyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final int GROUP_ITEM_TYPE = 1;
     public static final int CHILD_ITEM_TYPE = 2;
@@ -40,31 +40,18 @@ public class GroupRecyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private LayoutInflater inflater;
     private Context mContext;
 
-    public GroupRecyAdapter(Context context) {
+    public HomeListAdapter(Context context) {
         this.mContext = context;
         inflater = LayoutInflater.from(context);
     }
 
     /**
-     * @param map
+     * @param children
      */
-    public void setList(LinkedHashMap<String, ArrayList<HomeListBean.ChildListBean>> map) {
-
-        Iterator iterator = map.keySet().iterator();
-        while (iterator.hasNext()) {
-            String key = iterator.next().toString();
-
-            if (map.get(key).size() > 0) {
-                mList.add(new HomeListBean.ChildListBean(key, true));
-//                Log.i("tag",""+key);
-            }
-            mList.addAll(map.get(key));
-
-        }
-
+    public void setList(List<HomeListBean.ChildListBean> children) {
+        mList = children;
         notifyDataSetChanged();
     }
-
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

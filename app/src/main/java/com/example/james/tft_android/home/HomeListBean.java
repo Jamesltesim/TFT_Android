@@ -35,6 +35,21 @@ public class HomeListBean {
                 private boolean isGroup;
                 private boolean isFooter;
 
+
+
+                private boolean isDiscountItem;
+                private boolean isGeneralItem;
+                private boolean isHeader;
+
+                public boolean isHeader() {
+                    return isHeader;
+                }
+
+                public void setHeader(boolean header) {
+                    isHeader = header;
+                }
+
+
                 public boolean isDiscountItem() {
                     return isDiscountItem;
                 }
@@ -42,8 +57,6 @@ public class HomeListBean {
                 public void setDiscountItem(boolean discountItem) {
                     isDiscountItem = discountItem;
                 }
-
-                private boolean isDiscountItem;
 
                 public boolean isFooter() {
                     return isFooter;
@@ -77,6 +90,15 @@ public class HomeListBean {
                     this.childName = childName;
                     this.isFooter = ifFooter;
                 }
+                public ChildListBean(String childName, boolean isDiscountItem,boolean isGeneralItem,boolean isHeader,boolean isFooter) {
+                    this.childName = childName;
+                    this.isDiscountItem = isDiscountItem;
+                    this.isGeneralItem = isGeneralItem;
+                    this.isHeader = isHeader;
+                    this.isFooter = isFooter;
+                }
+
+
 
                 public boolean isGroup() {
                     return isGroup;
