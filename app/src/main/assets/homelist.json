@@ -1,0 +1,40 @@
+{
+    "code":200,
+    "msg":"",
+    "data": [
+      {
+        "childList": [
+          {
+            "childName": "组员1",
+            "openTime": "2017-04-20 11:40:18"
+          },
+          {
+            "childName": "组员2",
+            "openTime": "2017-04-20 11:40:18"
+          },
+          {
+            "childName": "组员3",
+            "openTime": "2017-04-20 11:40:18"
+          },
+          {
+            "childName": "组员4",
+            "openTime": "2017-04-20 11:40:18"
+          }
+        ],
+        "groupName": "特惠推荐"
+      },
+      {
+        "childList": [
+          {
+            "childName": "组员1",
+            "openTime": "2017-07-06 10:05:16"
+          },
+          {
+            "childName": "组员2",
+            "openTime": "2017-07-06 10:05:16"
+          }
+        ],
+        "groupName": "更多商品"
+      }
+    ]
+}

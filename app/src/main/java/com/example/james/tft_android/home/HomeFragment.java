@@ -1,19 +1,14 @@
 package com.example.james.tft_android.home;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.example.james.tft_android.R;
 import com.example.james.tft_android.base.BaseFragment;
 
-import com.example.james.tft_android.me.GroupChildBean;
-import com.example.james.tft_android.me.GroupRecyAdapter;
-import com.example.james.tft_android.tools.DataUtils;
+import com.example.james.tft_android.base.network.NetworkManage;
+
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -28,8 +23,8 @@ public class HomeFragment extends BaseFragment {
     protected RecyclerView mRecyclerView;
     private GroupRecyAdapter mAdapter;
     private List<String> list;
-    private LinkedHashMap<String, ArrayList<GroupChildBean.ResultMsgBean.GroupListBean.ChildListBean>> groupMap =
-            new LinkedHashMap<String, ArrayList<GroupChildBean.ResultMsgBean.GroupListBean.ChildListBean>>();
+    private LinkedHashMap<String, ArrayList<GroupChildBean.DataBean.ChildListBean>> groupMap =
+            new LinkedHashMap<String, ArrayList<GroupChildBean.DataBean.ChildListBean>>();
 //    protected
     public HomeFragment() {
     }
@@ -51,12 +46,17 @@ public class HomeFragment extends BaseFragment {
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
+
+                if(mAdapter.getItemViewType(position) == GroupRecyAdapter.DISCOUNT_ITEM_TYPE){
+                    return manager.getSpanCount();
+                }
+
                 if(mAdapter.getItemViewType(position) == GroupRecyAdapter.CHILD_ITEM_TYPE){
                     return 1;
                 }else {
                     return manager.getSpanCount();
                 }
-//                return mAdapter.getItemViewType(position) == GroupRecyAdapter.GROUP_ITEM_TYPE ? manager.getSpanCount() : 1;
+//                return mAdapter.getItemViewT ype(position) == GroupRecyAdapter.GROUP_ITEM_TYPE ? manager.getSpanCount() : 1;
             }
         });
         mRecyclerView.setLayoutManager(manager);
@@ -67,21 +67,21 @@ public class HomeFragment extends BaseFragment {
         mAdapter.setList(initData());
     }
 
-    private LinkedHashMap<String, ArrayList<GroupChildBean.ResultMsgBean.GroupListBean.ChildListBean>> initData() {
+    private LinkedHashMap<String, ArrayList<GroupChildBean.DataBean.ChildListBean>> initData() {
 /**
  * json数据
  */
-        String data = DataUtils.getJson("me.json",getActivity());
+        String data = NetworkManage.homeList(getContext());
 
         GroupChildBean bean = new Gson().fromJson(data, GroupChildBean.class);
 
-        for (GroupChildBean.ResultMsgBean.GroupListBean group : bean.getResultMsg().getGroupList()) {
+        for (GroupChildBean.DataBean group : bean.getData()) {
 
-            ArrayList<GroupChildBean.ResultMsgBean.GroupListBean.ChildListBean> childList = new ArrayList<>();
+            ArrayList<GroupChildBean.DataBean.ChildListBean> childList = new ArrayList<>();
 
-            for (GroupChildBean.ResultMsgBean.GroupListBean.ChildListBean child : group.getChildList()) {
+            for (GroupChildBean.DataBean.ChildListBean child : group.getChildList()) {
 
-                GroupChildBean.ResultMsgBean.GroupListBean.ChildListBean childBean = new GroupChildBean.ResultMsgBean.GroupListBean.ChildListBean(child.getChildName());
+                GroupChildBean.DataBean.ChildListBean childBean = new GroupChildBean.DataBean.ChildListBean(child.getChildName());
                 childList.add(childBean);
 
             }
