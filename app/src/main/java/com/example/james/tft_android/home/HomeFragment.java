@@ -23,8 +23,8 @@ public class HomeFragment extends BaseFragment {
     protected RecyclerView mRecyclerView;
     private GroupRecyAdapter mAdapter;
     private List<String> list;
-    private LinkedHashMap<String, ArrayList<GroupChildBean.DataBean.ChildListBean>> groupMap =
-            new LinkedHashMap<String, ArrayList<GroupChildBean.DataBean.ChildListBean>>();
+    private LinkedHashMap<String, ArrayList<HomeListBean.DataBean.ChildListBean>> groupMap =
+            new LinkedHashMap<String, ArrayList<HomeListBean.DataBean.ChildListBean>>();
 //    protected
     public HomeFragment() {
     }
@@ -67,21 +67,21 @@ public class HomeFragment extends BaseFragment {
         mAdapter.setList(initData());
     }
 
-    private LinkedHashMap<String, ArrayList<GroupChildBean.DataBean.ChildListBean>> initData() {
+    private LinkedHashMap<String, ArrayList<HomeListBean.DataBean.ChildListBean>> initData() {
 /**
  * json数据
  */
         String data = NetworkManage.homeList(getContext());
 
-        GroupChildBean bean = new Gson().fromJson(data, GroupChildBean.class);
+        HomeListBean bean = new Gson().fromJson(data, HomeListBean.class);
 
-        for (GroupChildBean.DataBean group : bean.getData()) {
+        for (HomeListBean.DataBean group : bean.getData()) {
 
-            ArrayList<GroupChildBean.DataBean.ChildListBean> childList = new ArrayList<>();
+            ArrayList<HomeListBean.DataBean.ChildListBean> childList = new ArrayList<>();
 
-            for (GroupChildBean.DataBean.ChildListBean child : group.getChildList()) {
+            for (HomeListBean.DataBean.ChildListBean child : group.getChildList()) {
 
-                GroupChildBean.DataBean.ChildListBean childBean = new GroupChildBean.DataBean.ChildListBean(child.getChildName());
+                HomeListBean.DataBean.ChildListBean childBean = new HomeListBean.DataBean.ChildListBean(child.getChildName());
                 childList.add(childBean);
 
             }

@@ -36,7 +36,7 @@ public class GroupRecyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public static final int GENERAL_HEADER__TYPE = 7;
     public static final int GENERAL_ITEM__TYPE = 8;
     public static final int GENERAL_FOOTER__TYPE = 9;
-    private List<GroupChildBean.DataBean.ChildListBean> mList = new ArrayList<>();
+    private List<HomeListBean.DataBean.ChildListBean> mList = new ArrayList<>();
     private LayoutInflater inflater;
     private Context mContext;
 
@@ -48,7 +48,7 @@ public class GroupRecyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     /**
      * @param map
      */
-    public void setList(LinkedHashMap<String, ArrayList<GroupChildBean.DataBean.ChildListBean>> map) {
+    public void setList(LinkedHashMap<String, ArrayList<HomeListBean.DataBean.ChildListBean>> map) {
 
 //        Log.i("tag1",""+map);
         Iterator iterator = map.keySet().iterator();
@@ -57,12 +57,12 @@ public class GroupRecyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             if(key.equals("更多商品") ){
 //                给上一个组添加footer 需要判断当前组的key
-                mList.add(new GroupChildBean.DataBean.ChildListBean("FOOTER", false,true));
+                mList.add(new HomeListBean.DataBean.ChildListBean("FOOTER", false,true));
             }
 
 
             if (map.get(key).size() > 0) {
-                mList.add(new GroupChildBean.DataBean.ChildListBean(key, true));
+                mList.add(new HomeListBean.DataBean.ChildListBean(key, true));
 //                Log.i("tag",""+key);
             }
             mList.addAll(map.get(key));
@@ -107,7 +107,7 @@ public class GroupRecyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        final GroupChildBean.DataBean.ChildListBean bean = mList.get(position);
+        final HomeListBean.DataBean.ChildListBean bean = mList.get(position);
         int type = holder.getItemViewType();
         if (type == GROUP_ITEM_TYPE) {
             GroupViewHolder holder1 = (GroupViewHolder) holder;

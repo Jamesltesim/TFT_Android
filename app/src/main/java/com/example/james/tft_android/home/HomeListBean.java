@@ -6,7 +6,7 @@ import java.util.List;
  * Created by caobin on 2017/9/14.
  */
 
-public class GroupChildBean {
+public class HomeListBean {
 
         private List<DataBean> data;
 
@@ -17,6 +17,7 @@ public class GroupChildBean {
         public void setData(List<DataBean> groupList) {
             this.data = groupList;
         }
+
 
 
 //        public static class GroupListBean {
