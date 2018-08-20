@@ -24,11 +24,6 @@ import java.util.List;
 
 public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    public static final int GROUP_ITEM_TYPE = 1;
-    public static final int CHILD_ITEM_TYPE = 2;
-    public static final int FOOTER_ITEM_TYPE = 3;
-
-
     public static final int DISCOUNT_HEADER__TYPE = 4;
     public static final int DISCOUNT_ITEM_TYPE = 5;
     public static final int DISCOUNT_FOOTER__TYPE = 6;
@@ -39,6 +34,13 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private List<HomeListBean.ChildListBean> mList = new ArrayList<>();
     private LayoutInflater inflater;
     private Context mContext;
+
+
+
+    protected HomeListItemOnClickListener onClickListener;
+    public void setOnClickListener(HomeListItemOnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
 
     public HomeListAdapter(Context context) {
         this.mContext = context;
@@ -53,72 +55,31 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         notifyDataSetChanged();
     }
 
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
         RecyclerView.ViewHolder holder = null;
-        if (viewType == GROUP_ITEM_TYPE) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_group, parent, false);
-            System.err.println("onCreateViewHolder");
-            holder = new GroupViewHolder(view);
-        }
-        else if (viewType == CHILD_ITEM_TYPE){
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_child, parent, false);
-            holder = new ChildViewHolder(view);
-        }
-
-        else if (viewType == FOOTER_ITEM_TYPE){
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_group, parent, false);
-            System.err.println("onCreateViewHolder");
-            holder = new GroupViewHolder(view);
-        }
-
-
 
         if(viewType == DISCOUNT_ITEM_TYPE){
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_discount_home, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_child, parent, false);
             holder = new ChildViewHolder1(view);
+        }else if (viewType == GENERAL_ITEM__TYPE){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_child, parent, false);
+            holder = new ChildViewHolder(view);
+        }else {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_group, parent, false);
+            System.err.println("onCreateViewHolder");
+            holder = new GroupViewHolder(view);
         }
 
         return holder;
-
-
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final HomeListBean.ChildListBean bean = mList.get(position);
         int type = holder.getItemViewType();
-        if (type == GROUP_ITEM_TYPE) {
-            GroupViewHolder holder1 = (GroupViewHolder) holder;
-            holder1.textView.setText(bean.getChildName());
-            holder1.cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(mContext, bean.getChildName(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-        else if(type == CHILD_ITEM_TYPE){
-            ChildViewHolder holder1 = (ChildViewHolder) holder;
-            holder1.textView.setText(bean.getChildName());
-            holder1.cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(mContext, bean.getChildName(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-        else if (type == FOOTER_ITEM_TYPE){
-            GroupViewHolder holder1 = (GroupViewHolder) holder;
-            holder1.textView.setText(bean.getChildName());
-            holder1.cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(mContext, bean.getChildName(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
 
         if(type == DISCOUNT_ITEM_TYPE){
             ChildViewHolder1 holder1 = (ChildViewHolder1) holder;
@@ -128,7 +89,35 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //                public void onClick(View v) {
 //                    Toast.makeText(mContext, bean.getChildName(), Toast.LENGTH_SHORT).show();
 //                }
-//            });
+//            })
+            holder1.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickListener != null){
+                        onClickListener.homeListItemOnClick(bean.section,bean.index);
+                    }
+                }
+            });
+        }else if(type == GENERAL_ITEM__TYPE){
+            ChildViewHolder holder1 = (ChildViewHolder) holder;
+            holder1.textView.setText(bean.getChildName());
+            holder1.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickListener != null){
+                        onClickListener.homeListItemOnClick(bean.section,bean.index);
+                    }
+                }
+            });
+        }else {
+            GroupViewHolder holder1 = (GroupViewHolder) holder;
+            holder1.textView.setText(bean.getChildName());
+            holder1.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext, bean.getChildName(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
@@ -144,19 +133,21 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (mList.get(position).isDiscountItem()) {
             return DISCOUNT_ITEM_TYPE;
         }
-
-
-
-        if (mList.get(position).isFooter()) {
-            return FOOTER_ITEM_TYPE;
+        else if(mList.get(position).isGeneralItem()){
+            return GENERAL_ITEM__TYPE;
         }
-
-        if (mList.get(position).isGroup()) {
-            return GROUP_ITEM_TYPE;
-        } else {
-            return CHILD_ITEM_TYPE;
+        else if(mList.get(position).isDiscountHeader()){
+            return DISCOUNT_HEADER__TYPE;
         }
-
+        else if(mList.get(position).isDiscountFooter()){
+            return DISCOUNT_FOOTER__TYPE;
+        }
+        else if(mList.get(position).isGeneralHeader()){
+            return GENERAL_HEADER__TYPE;
+        }
+        else {
+            return GENERAL_FOOTER__TYPE;
+        }
 
     }
 
@@ -194,13 +185,13 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      * 打折商品
      */
     class ChildViewHolder1 extends RecyclerView.ViewHolder {
-//        TextView textView;
-//        CardView cardView;
+        TextView textView;
+        CardView cardView;
 
         public ChildViewHolder1(View itemView) {
             super(itemView);
-//            textView = (TextView) itemView.findViewById(R.id.tv);
-//            cardView = (CardView) itemView.findViewById(R.id.card_view);
+            textView = (TextView) itemView.findViewById(R.id.tv);
+            cardView = (CardView) itemView.findViewById(R.id.card_view);
         }
     }
 
@@ -217,5 +208,10 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             textView = (TextView) itemView.findViewById(R.id.header);
             cardView = (LinearLayout) itemView.findViewById(R.id.card_view);
         }
+    }
+
+    protected interface HomeListItemOnClickListener{
+
+        void homeListItemOnClick(int section,int index);
     }
 }

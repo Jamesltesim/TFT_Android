@@ -3,6 +3,8 @@ package com.example.james.tft_android.home;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.james.tft_android.R;
 import com.example.james.tft_android.base.BaseBean;
@@ -35,26 +37,29 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onCreateView() {
         final GridLayoutManager manager = new GridLayoutManager(getActivity(), 3, OrientationHelper.VERTICAL, false);
+
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
 
-                if(mAdapter.getItemViewType(position) == HomeListAdapter.DISCOUNT_ITEM_TYPE){
+                if(mAdapter.getItemViewType(position) == HomeListAdapter.GENERAL_ITEM__TYPE){
+                    return 1;
+                } else {
                     return manager.getSpanCount();
                 }
 
-                if(mAdapter.getItemViewType(position) == HomeListAdapter.CHILD_ITEM_TYPE){
-                    return 1;
-                }else {
-                    return manager.getSpanCount();
-                }
-//                return mAdapter.getItemViewT ype(position) == GroupRecyAdapter.GROUP_ITEM_TYPE ? manager.getSpanCount() : 1;
             }
         });
         mRecyclerView.setLayoutManager(manager);
         mAdapter = new HomeListAdapter(getActivity());
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setList(initData());
+        mAdapter.setOnClickListener(new HomeListAdapter.HomeListItemOnClickListener() {
+            @Override
+            public void homeListItemOnClick(int section, int index) {
+                Toast.makeText(getActivity(),"当前点击了第"+section + "组,第" +index +"行",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private List<HomeListBean.ChildListBean> initData() {
@@ -76,16 +81,30 @@ public class HomeFragment extends BaseFragment {
             ArrayList<HomeListBean.ChildListBean> childList = new ArrayList<>();
 
             //添加 当前组 header 数据
-            childList.add(new HomeListBean.ChildListBean(group.getGroupName(), true));
+            HomeListBean.ChildListBean header = new HomeListBean.ChildListBean(group.getGroupName());
+            header.setDiscountHeader(true);
+            childList.add(header);
 
             for (int j=0 ;j<group.getChildList().size();j++){
                 HomeListBean.ChildListBean child = group.getChildList().get(j);
                 HomeListBean.ChildListBean childBean = new HomeListBean.ChildListBean(child.getChildName());
+
+                childBean.section = i;
+                childBean.index = j;
+                if(i==0){
+                    childBean.setDiscountItem(true);
+                }else if (i==1){
+                    childBean.setGeneralItem(true);
+                }
+
                 childList.add(childBean);
             }
 
             //添加 当前组 footer 数据
-            childList.add(new HomeListBean.ChildListBean("footer",false,true));
+            HomeListBean.ChildListBean footer = new HomeListBean.ChildListBean("footer");
+            footer.setDiscountFooter(true);
+            childList.add(footer);
+
 
             list.addAll(childList);
         }

@@ -30,41 +30,19 @@ public class HomeListBean {
 
             public static class ChildListBean {
 
-                private String childName;
-                private String openTime;
-                private boolean isGroup;
-                private boolean isFooter;
+                protected int section;
+                protected int index;
 
-
-
+                private boolean isDiscountHeader;
                 private boolean isDiscountItem;
+                private boolean isDiscountFooter;
+
+                private boolean isGeneralHeader;
                 private boolean isGeneralItem;
-                private boolean isHeader;
+                private boolean isGeneralFooter;
 
-                public boolean isHeader() {
-                    return isHeader;
-                }
-
-                public void setHeader(boolean header) {
-                    isHeader = header;
-                }
-
-
-                public boolean isDiscountItem() {
-                    return isDiscountItem;
-                }
-
-                public void setDiscountItem(boolean discountItem) {
-                    isDiscountItem = discountItem;
-                }
-
-                public boolean isFooter() {
-                    return isFooter;
-                }
-
-                public void setFooter(boolean footer) {
-                    isFooter = footer;
-                }
+                private String openTime;
+                private String childName;
 
                 /**
                  * 添加child
@@ -75,39 +53,8 @@ public class HomeListBean {
                     this.childName = childName;
                 }
 
-                /**
-                 * 把group当成child
-                 *
-                 * @param childName
-                 * @param isGroup
-                 */
-                public ChildListBean(String childName, boolean isGroup) {
-                    this.childName = childName;
-                    this.isGroup = isGroup;
-                }
 
-                public ChildListBean(String childName, boolean isGroup,boolean ifFooter) {
-                    this.childName = childName;
-                    this.isFooter = ifFooter;
-                }
-                public ChildListBean(String childName, boolean isDiscountItem,boolean isGeneralItem,boolean isHeader,boolean isFooter) {
-                    this.childName = childName;
-                    this.isDiscountItem = isDiscountItem;
-                    this.isGeneralItem = isGeneralItem;
-                    this.isHeader = isHeader;
-                    this.isFooter = isFooter;
-                }
-
-
-
-                public boolean isGroup() {
-                    return isGroup;
-                }
-
-                public void setGroup(boolean group) {
-                    isGroup = group;
-                }
-
+                //get set
                 public String getChildName() {
                     return childName;
                 }
@@ -123,5 +70,54 @@ public class HomeListBean {
                 public void setOpenTime(String openTime) {
                     this.openTime = openTime;
                 }
+
+                public boolean isGeneralHeader() {
+                    return isGeneralHeader;
+                }
+
+                public void setGeneralHeader(boolean generalHeader) {
+                    isGeneralHeader = generalHeader;
+                }
+
+                public boolean isGeneralFooter() {
+                    return isGeneralFooter;
+                }
+
+                public void setGeneralFooter(boolean generalFooter) {
+                    isGeneralFooter = generalFooter;
+                }
+
+                public boolean isDiscountHeader() {
+                    return isDiscountHeader;
+                }
+
+                public void setDiscountHeader(boolean discountHeader) {
+                    isDiscountHeader = discountHeader;
+                }
+
+                public boolean isDiscountFooter() {
+                    return isDiscountFooter;
+                }
+
+                public void setDiscountFooter(boolean discountFooter) {
+                    isDiscountFooter = discountFooter;
+                }
+
+                public boolean isGeneralItem() {
+                    return isGeneralItem;
+                }
+
+                public void setGeneralItem(boolean generalItem) {
+                    isGeneralItem = generalItem;
+                }
+
+                public boolean isDiscountItem() {
+                    return isDiscountItem;
+                }
+
+                public void setDiscountItem(boolean discountItem) {
+                    isDiscountItem = discountItem;
+                }
+
             }
 }
