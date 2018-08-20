@@ -8,20 +8,7 @@ import java.util.List;
 
 public class HomeListBean {
 
-        private List<DataBean> data;
 
-        public List<DataBean> getData() {
-            return data;
-        }
-
-        public void setData(List<DataBean> groupList) {
-            this.data = groupList;
-        }
-
-
-
-//        public static class GroupListBean {
-        public static class DataBean {
             private String groupName;
             private List<ChildListBean> childList;
 
@@ -115,5 +102,4 @@ public class HomeListBean {
                     this.openTime = openTime;
                 }
             }
-        }
-    }
+}

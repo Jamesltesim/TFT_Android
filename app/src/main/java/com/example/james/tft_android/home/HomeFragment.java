@@ -3,14 +3,18 @@ package com.example.james.tft_android.home;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.example.james.tft_android.R;
+import com.example.james.tft_android.base.BaseBean;
 import com.example.james.tft_android.base.BaseFragment;
 
 import com.example.james.tft_android.base.network.NetworkManage;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -23,8 +27,8 @@ public class HomeFragment extends BaseFragment {
     protected RecyclerView mRecyclerView;
     private GroupRecyAdapter mAdapter;
     private List<String> list;
-    private LinkedHashMap<String, ArrayList<HomeListBean.DataBean.ChildListBean>> groupMap =
-            new LinkedHashMap<String, ArrayList<HomeListBean.DataBean.ChildListBean>>();
+    private LinkedHashMap<String, ArrayList<HomeListBean.ChildListBean>> groupMap =
+            new LinkedHashMap<String, ArrayList<HomeListBean.ChildListBean>>();
 //    protected
     public HomeFragment() {
     }
@@ -67,21 +71,24 @@ public class HomeFragment extends BaseFragment {
         mAdapter.setList(initData());
     }
 
-    private LinkedHashMap<String, ArrayList<HomeListBean.DataBean.ChildListBean>> initData() {
+    private LinkedHashMap<String, ArrayList<HomeListBean.ChildListBean>> initData() {
 /**
  * json数据
  */
-        String data = NetworkManage.homeList(getContext());
+        String data = NetworkManage.homeList();
 
-        HomeListBean bean = new Gson().fromJson(data, HomeListBean.class);
+        Type type = new TypeToken<BaseBean<HomeListBean>>(){}.getType();
 
-        for (HomeListBean.DataBean group : bean.getData()) {
+        BaseBean<HomeListBean> bean = new Gson().fromJson(data, type);
 
-            ArrayList<HomeListBean.DataBean.ChildListBean> childList = new ArrayList<>();
 
-            for (HomeListBean.DataBean.ChildListBean child : group.getChildList()) {
+        for (HomeListBean group : bean.getData()) {
 
-                HomeListBean.DataBean.ChildListBean childBean = new HomeListBean.DataBean.ChildListBean(child.getChildName());
+            ArrayList<HomeListBean.ChildListBean> childList = new ArrayList<>();
+
+            for (HomeListBean.ChildListBean child : group.getChildList()) {
+
+                HomeListBean.ChildListBean childBean = new HomeListBean.ChildListBean(child.getChildName());
                 childList.add(childBean);
 
             }

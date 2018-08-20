@@ -1,9 +1,11 @@
 package com.example.james.tft_android.base;
 
+import java.util.List;
+
 public class BaseBean<T> {
     int code;
     String msg;
-    T data;
+    List<T> data;
 
     public int getCode() {
         return code;
@@ -21,11 +23,11 @@ public class BaseBean<T> {
         this.msg = msg;
     }
 
-    public T getData() {
+    public List<T> getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(List<T> data) {
         this.data = data;
     }
 }
