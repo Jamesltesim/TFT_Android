@@ -26,9 +26,7 @@ public class HomeFragment extends BaseFragment {
     @BindView(R.id.recyclerView)
     protected RecyclerView mRecyclerView;
     private GroupRecyAdapter mAdapter;
-    private List<String> list;
-    private LinkedHashMap<String, ArrayList<HomeListBean.ChildListBean>> groupMap =
-            new LinkedHashMap<String, ArrayList<HomeListBean.ChildListBean>>();
+
 //    protected
     public HomeFragment() {
     }
@@ -40,12 +38,6 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public void onCreateView() {
-        list = new ArrayList<>();
-        initView();
-    }
-
-    private void initView() {
-
         final GridLayoutManager manager = new GridLayoutManager(getActivity(), 3, OrientationHelper.VERTICAL, false);
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -71,10 +63,12 @@ public class HomeFragment extends BaseFragment {
         mAdapter.setList(initData());
     }
 
+
     private LinkedHashMap<String, ArrayList<HomeListBean.ChildListBean>> initData() {
 /**
  * json数据
  */
+
         String data = NetworkManage.homeList();
 
         Type type = new TypeToken<BaseBean<HomeListBean>>(){}.getType();
@@ -82,16 +76,22 @@ public class HomeFragment extends BaseFragment {
         BaseBean<HomeListBean> bean = new Gson().fromJson(data, type);
 
 
+        LinkedHashMap<String, ArrayList<HomeListBean.ChildListBean>> groupMap =
+                new LinkedHashMap<String, ArrayList<HomeListBean.ChildListBean>>();
+
         for (HomeListBean group : bean.getData()) {
 
             ArrayList<HomeListBean.ChildListBean> childList = new ArrayList<>();
 
+            //初始化 header 数据
             for (HomeListBean.ChildListBean child : group.getChildList()) {
 
                 HomeListBean.ChildListBean childBean = new HomeListBean.ChildListBean(child.getChildName());
                 childList.add(childBean);
 
             }
+
+            //初始化 footer 数据
             groupMap.put(group.getGroupName(), childList);
         }
         return groupMap;

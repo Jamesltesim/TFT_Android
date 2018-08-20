@@ -50,16 +50,9 @@ public class GroupRecyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
      */
     public void setList(LinkedHashMap<String, ArrayList<HomeListBean.ChildListBean>> map) {
 
-//        Log.i("tag1",""+map);
         Iterator iterator = map.keySet().iterator();
         while (iterator.hasNext()) {
             String key = iterator.next().toString();
-
-            if(key.equals("更多商品") ){
-//                给上一个组添加footer 需要判断当前组的key
-                mList.add(new HomeListBean.ChildListBean("FOOTER", false,true));
-            }
-
 
             if (map.get(key).size() > 0) {
                 mList.add(new HomeListBean.ChildListBean(key, true));
