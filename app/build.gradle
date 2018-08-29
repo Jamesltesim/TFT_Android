@@ -41,6 +41,9 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 
+    //banner
+    implementation 'com.youth.banner:banner:1.4.10'  //最新版本
+
 
 
 

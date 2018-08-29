@@ -1,18 +1,23 @@
 package com.example.james.tft_android.home;
 
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.widget.Toast;
 
 import com.example.james.tft_android.R;
-import com.example.james.tft_android.base.BaseBean;
+import com.example.james.tft_android.base.model.ResultBean;
 import com.example.james.tft_android.base.BaseFragment;
 
 import com.example.james.tft_android.base.network.NetworkManage;
+import com.example.james.tft_android.home.menu.MenuListActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.youth.banner.Banner;
+import com.youth.banner.loader.ImageLoader;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +41,8 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public void onCreateView() {
+
+
         final GridLayoutManager manager = new GridLayoutManager(getActivity(), 3, OrientationHelper.VERTICAL, false);
 
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -50,26 +57,41 @@ public class HomeFragment extends BaseFragment {
 
             }
         });
+
+        ArrayList imageList = new ArrayList<>();
+        imageList.add("http://img2.imgtn.bdimg.com/it/u=2168390916,2848056960&fm=26&gp=0.jpg");
+        imageList.add("http://img2.imgtn.bdimg.com/it/u=1141625710,1084761952&fm=26&gp=0.jpg");
+        imageList.add("http://img5.imgtn.bdimg.com/it/u=1037529503,206401728&fm=26&gp=0.jpg");
+
+        imageList.add("http://img1.imgtn.bdimg.com/it/u=3370266447,1250990444&fm=26&gp=0.jpg");
+        imageList.add("http://img.zcool.cn/community/0117e2571b8b246ac72538120dd8a4.jpg@1280w_1l_2o_100sh.jpg");
+
         mRecyclerView.setLayoutManager(manager);
         mAdapter = new HomeListAdapter(getActivity());
+        mAdapter.setImageList(imageList);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setList(initData());
+
         mAdapter.setOnClickListener(new HomeListAdapter.HomeListItemOnClickListener() {
             @Override
             public void homeListItemOnClick(int section, int index) {
                 Toast.makeText(getActivity(),"当前点击了第"+section + "组,第" +index +"行",Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getActivity(), MenuListActivity.class);
+                startActivity(intent);
             }
         });
+
     }
 
     private List<HomeListBean.ChildListBean> initData() {
         //网络请求的数据
         String data = NetworkManage.homeList();
 
-        Type type = new TypeToken<BaseBean<HomeListBean>>(){}.getType();
+        Type type = new TypeToken<ResultBean<HomeListBean>>(){}.getType();
 
         //解析成model
-        BaseBean<HomeListBean> bean = new Gson().fromJson(data, type);
+        ResultBean<HomeListBean> bean = new Gson().fromJson(data, type);
 
         List<HomeListBean.ChildListBean> list = new ArrayList<>();
 
@@ -81,9 +103,13 @@ public class HomeFragment extends BaseFragment {
             ArrayList<HomeListBean.ChildListBean> childList = new ArrayList<>();
 
             //添加 当前组 header 数据
-            HomeListBean.ChildListBean header = new HomeListBean.ChildListBean(group.getGroupName());
-            header.setDiscountHeader(true);
-            childList.add(header);
+            if (i==0){
+                HomeListBean.ChildListBean header = new HomeListBean.ChildListBean(group.getGroupName());
+
+                header.setDiscountHeader(true);
+                childList.add(header);
+            }
+
 
             for (int j=0 ;j<group.getChildList().size();j++){
                 HomeListBean.ChildListBean child = group.getChildList().get(j);

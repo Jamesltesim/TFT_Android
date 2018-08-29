@@ -25,7 +25,7 @@ public class MenuSortAdapter extends RecyclerView.Adapter<MenuSortAdapter.MyView
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         MyViewHolder holder = new MyViewHolder(LayoutInflater.from(
-                context).inflate(R.layout.recyclerview_item, parent,
+                context).inflate(R.layout.item_title_menusort_home, parent,
                 false));
         return holder;
     }

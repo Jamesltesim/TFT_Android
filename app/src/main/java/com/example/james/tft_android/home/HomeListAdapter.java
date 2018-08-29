@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.james.tft_android.R;
+import com.youth.banner.Banner;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,9 +34,20 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public static final int GENERAL_ITEM__TYPE = 8;
     public static final int GENERAL_FOOTER__TYPE = 9;
     private List<HomeListBean.ChildListBean> mList = new ArrayList<>();
+    private List<String> imageList = new ArrayList<>();
+
     private LayoutInflater inflater;
     private Context mContext;
 
+    public void setBanner(Banner banner) {
+        this.banner = banner;
+    }
+
+    public Banner getBanner() {
+        return banner;
+    }
+
+    private Banner banner;
 
 
     protected HomeListItemOnClickListener onClickListener;
@@ -45,6 +58,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public HomeListAdapter(Context context) {
         this.mContext = context;
         inflater = LayoutInflater.from(context);
+
     }
 
     /**
@@ -56,19 +70,30 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
 
+    public void setImageList(List<String> list){
+        imageList = list;
+        notifyDataSetChanged();
+    }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
         RecyclerView.ViewHolder holder = null;
 
         if(viewType == DISCOUNT_ITEM_TYPE){
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_child, parent, false);
+            view = inflater.inflate(R.layout.item_discount_home, parent, false);
             holder = new ChildViewHolder1(view);
         }else if (viewType == GENERAL_ITEM__TYPE){
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_child, parent, false);
+            view = inflater.inflate(R.layout.item_list_child, parent, false);
             holder = new ChildViewHolder(view);
-        }else {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_group, parent, false);
+        }
+        else if (viewType == DISCOUNT_HEADER__TYPE){
+            view = inflater.inflate(R.layout.item_banner_home, parent, false);
+//            System.err.println("onCreateViewHolder");
+            holder = new BannerViewHolder(view);
+
+        }
+        else {
+            view = inflater.inflate(R.layout.item_list_group, parent, false);
             System.err.println("onCreateViewHolder");
             holder = new GroupViewHolder(view);
         }
@@ -90,7 +115,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //                    Toast.makeText(mContext, bean.getChildName(), Toast.LENGTH_SHORT).show();
 //                }
 //            })
-            holder1.cardView.setOnClickListener(new View.OnClickListener() {
+            holder1.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (onClickListener != null){
@@ -109,7 +134,20 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     }
                 }
             });
-        }else {
+        }
+        else if(type == DISCOUNT_HEADER__TYPE){
+            BannerViewHolder viewHolder = (BannerViewHolder) holder;
+            viewHolder.banner.setImageLoader(new GlideImageLoader());
+            //设置图片集合
+
+            viewHolder.banner.setImages(imageList);
+//            viewHolder.banner.setBannerStyle(Banner.)
+//            banner设置方法全部调用完毕时最后调用
+            viewHolder.banner.start();
+//            holder1.setIsRecyclable(false);
+
+        }
+        else {
             GroupViewHolder holder1 = (GroupViewHolder) holder;
             holder1.textView.setText(bean.getChildName());
             holder1.cardView.setOnClickListener(new View.OnClickListener() {
@@ -182,16 +220,35 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     /**
-     * 打折商品
+     * 优惠特价商品
      */
     class ChildViewHolder1 extends RecyclerView.ViewHolder {
-        TextView textView;
-        CardView cardView;
+//        TextView textView;
+//        CardView cardView;
 
+          View view;
         public ChildViewHolder1(View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.tv);
-            cardView = (CardView) itemView.findViewById(R.id.card_view);
+            view = itemView.findViewById(R.id.discount_item);
+//            textView = (TextView) itemView.findViewById(R.id.tv);
+//            cardView = (CardView) itemView.findViewById(R.id.card_view);
+        }
+    }
+
+//    public void setHomeBanner(){
+//
+//    }
+
+    /**
+     * banner
+     */
+    class BannerViewHolder extends RecyclerView.ViewHolder {
+        Banner banner;
+
+        public BannerViewHolder(View itemView) {
+            super(itemView);
+            banner = itemView.findViewById(R.id.banner);
+
         }
     }
 

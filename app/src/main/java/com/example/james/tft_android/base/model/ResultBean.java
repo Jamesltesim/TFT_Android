@@ -1,8 +1,8 @@
-package com.example.james.tft_android.base;
+package com.example.james.tft_android.base.model;
 
 import java.util.List;
 
-public class BaseBean<T> {
+public class ResultBean<T> {
     int code;
     String msg;
     List<T> data;

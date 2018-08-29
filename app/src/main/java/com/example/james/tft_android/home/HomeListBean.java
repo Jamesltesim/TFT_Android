@@ -1,5 +1,7 @@
 package com.example.james.tft_android.home;
 
+import com.example.james.tft_android.base.model.ItemBean;
+
 import java.util.List;
 
 /**
@@ -28,18 +30,7 @@ public class HomeListBean {
                 this.childList = childList;
             }
 
-            public static class ChildListBean {
-
-                protected int section;
-                protected int index;
-
-                private boolean isDiscountHeader;
-                private boolean isDiscountItem;
-                private boolean isDiscountFooter;
-
-                private boolean isGeneralHeader;
-                private boolean isGeneralItem;
-                private boolean isGeneralFooter;
+            public static class ChildListBean extends ItemBean{
 
                 private String openTime;
                 private String childName;
@@ -54,6 +45,14 @@ public class HomeListBean {
                 }
 
 
+
+                private boolean isDiscountHeader;
+                private boolean isDiscountItem;
+                private boolean isDiscountFooter;
+
+                private boolean isGeneralHeader;
+                private boolean isGeneralItem;
+                private boolean isGeneralFooter;
                 //get set
                 public String getChildName() {
                     return childName;
