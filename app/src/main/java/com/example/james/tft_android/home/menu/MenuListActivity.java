@@ -21,7 +21,7 @@ public class MenuListActivity extends AppCompatActivity {
 
     private TabLayout tableLayout;
 
-    private String[] tabStrs = {"num1", "asd", "num3", "8", "111", "000", "333"};
+    private String[] tabStrs = {"马云从此是老师，马云始终是老师", "asd", "num3", "8", "111", "000", "333"};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

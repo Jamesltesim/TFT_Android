@@ -1,6 +1,7 @@
 package com.example.james.tft_android.home;
 
 import android.content.Context;
+import android.media.Image;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,7 +85,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             view = inflater.inflate(R.layout.item_discount_home, parent, false);
             holder = new ChildViewHolder1(view);
         }else if (viewType == GENERAL_ITEM__TYPE){
-            view = inflater.inflate(R.layout.item_list_child, parent, false);
+            view = inflater.inflate(R.layout.item_general_home, parent, false);
             holder = new ChildViewHolder(view);
         }
         else if (viewType == DISCOUNT_HEADER__TYPE){
@@ -210,12 +212,12 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      */
     class ChildViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
-        CardView cardView;
+        ImageView cardView;
 
         public ChildViewHolder(View itemView) {
             super(itemView);
             textView = (TextView) itemView.findViewById(R.id.tv);
-            cardView = (CardView) itemView.findViewById(R.id.card_view);
+            cardView = (ImageView) itemView.findViewById(R.id.iv);
         }
     }
 
